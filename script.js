@@ -10,8 +10,8 @@ const projectsData = {
         {
             id: 'atlascare',
             title: 'AtlasCare - AI Hospital Management System',
-            description: 'AI-powered hospital management system developed during Code ESI Hackathon with 4 ML models for patient optimization, winning first place out of 50+ teams.',
-            longDescription: 'AtlasCare is a comprehensive AI-powered hospital management system that revolutionizes healthcare operations through intelligent automation. Developed during the prestigious Code ESI Hackathon, this project secured first place among 50+ competing teams by delivering innovative solutions to critical healthcare challenges using cutting-edge machine learning technologies.',
+            description: 'AI-powered hospital management system developed during Code ESI Hackathon with 4 ML models for patient optimization',
+            longDescription: 'AtlasCare is a comprehensive AI-powered hospital management system that revolutionizes healthcare operations through intelligent automation. Developed during the prestigious Code ESI Hackathon, this project ensures delivering innovative solutions to critical healthcare challenges using cutting-edge machine learning technologies.',
             tech: ['Python', 'scikit-learn', 'TensorFlow', 'React', 'Node.js', 'MongoDB', 'Docker', 'FastAPI'],
             features: [
                 'Patient volume prediction using advanced time series analysis and seasonal forecasting',
