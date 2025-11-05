@@ -12,7 +12,7 @@ const projectsData = {
             title: 'AtlasCare - AI Hospital Management System',
             description: 'AI-powered hospital management system developed during Code ESI Hackathon with 4 ML models for patient optimization',
             longDescription: 'AtlasCare is a comprehensive AI-powered hospital management system that revolutionizes healthcare operations through intelligent automation. Developed during the prestigious Code ESI Hackathon, this project ensures delivering innovative solutions to critical healthcare challenges using cutting-edge machine learning technologies.',
-            tech: ['Python', 'scikit-learn', 'prophet', 'FastAPI'],
+            tech: ['Python', 'scikit-learn', 'prophet', 'Flask'],
             features: [
                 'Patient volume prediction using advanced time series analysis and seasonal forecasting',
                 'Dynamic priority scoring system for emergency triage and patient classification',
@@ -195,7 +195,7 @@ const projectsData = {
             title: 'AtlasCare - Système de Gestion Hospitalière IA',
             description: 'Système de gestion hospitalière IA primé développé lors du Hackathon Code ESI avec 4 modèles ML pour l\'optimisation des patients, remportant la première place parmi 50+ équipes.',
             longDescription: 'AtlasCare est un système complet de gestion hospitalière alimenté par l\'IA qui révolutionne les opérations de santé grâce à l\'automatisation intelligente. Développé lors du prestigieux Hackathon Code ESI, ce projet a remporté la première place parmi 50+ équipes concurrentes en livrant des solutions innovantes aux défis critiques de la santé.',
-            tech: ['Python', 'scikit-learn', 'prophet', 'FastAPI'],
+            tech: ['Python', 'scikit-learn', 'prophet', 'Flask'],
             features: [
                 'Prédiction du volume de patients utilisant analyse de séries temporelles avancée et prévisions saisonnières',
                 'Prédiction d\'absence du personnel avec 92% de précision pour planification optimale et allocation des ressources',
