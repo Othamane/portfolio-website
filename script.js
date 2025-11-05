@@ -12,7 +12,7 @@ const projectsData = {
             title: 'AtlasCare - AI Hospital Management System',
             description: 'AI-powered hospital management system developed during Code ESI Hackathon with 4 ML models for patient optimization',
             longDescription: 'AtlasCare is a comprehensive AI-powered hospital management system that revolutionizes healthcare operations through intelligent automation. Developed during the prestigious Code ESI Hackathon, this project ensures delivering innovative solutions to critical healthcare challenges using cutting-edge machine learning technologies.',
-            tech: ['Python', 'scikit-learn', 'TensorFlow', 'React', 'Node.js', 'MongoDB', 'Docker', 'FastAPI'],
+            tech: ['Python', 'scikit-learn', 'prophet', 'FastAPI'],
             features: [
                 'Patient volume prediction using advanced time series analysis and seasonal forecasting',
                 'Dynamic priority scoring system for emergency triage and patient classification',
@@ -195,7 +195,7 @@ const projectsData = {
             title: 'AtlasCare - Système de Gestion Hospitalière IA',
             description: 'Système de gestion hospitalière IA primé développé lors du Hackathon Code ESI avec 4 modèles ML pour l\'optimisation des patients, remportant la première place parmi 50+ équipes.',
             longDescription: 'AtlasCare est un système complet de gestion hospitalière alimenté par l\'IA qui révolutionne les opérations de santé grâce à l\'automatisation intelligente. Développé lors du prestigieux Hackathon Code ESI, ce projet a remporté la première place parmi 50+ équipes concurrentes en livrant des solutions innovantes aux défis critiques de la santé.',
-            tech: ['Python', 'scikit-learn', 'TensorFlow', 'React', 'Node.js', 'MongoDB', 'Docker', 'FastAPI'],
+            tech: ['Python', 'scikit-learn', 'prophet', 'FastAPI'],
             features: [
                 'Prédiction du volume de patients utilisant analyse de séries temporelles avancée et prévisions saisonnières',
                 'Prédiction d\'absence du personnel avec 92% de précision pour planification optimale et allocation des ressources',
@@ -387,7 +387,7 @@ const translations = {
         'Projects': 'Projects',
         'Skills': 'Skills',
         'Contact': 'Contact',
-        
+
         // Buttons
         'View Details': 'View Details',
         'View Demo': 'View Demo',
@@ -398,7 +398,7 @@ const translations = {
         'Download CV': 'Download CV',
         'Menu': 'Menu',
         'Verify Certificate': 'Verify Certificate',
-        
+
         // General
         'Loading...': 'Loading...',
         'Close': 'Close',
@@ -412,7 +412,7 @@ const translations = {
         'Projects': 'Projets',
         'Skills': 'Compétences',
         'Contact': 'Contact',
-        
+
         // Buttons
         'View Details': 'Voir Détails',
         'View Demo': 'Voir Démo',
@@ -423,7 +423,7 @@ const translations = {
         'Download CV': 'Télécharger CV',
         'Menu': 'Menu',
         'Verify Certificate': 'Vérifier Certificat',
-        
+
         // General
         'Loading...': 'Chargement...',
         'Close': 'Fermer',
@@ -435,7 +435,7 @@ const translations = {
 let currentLanguage = 'en';
 
 // DOM Content Loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeLanguage();
     initializeLanguageTooltip();
     initializeNavigation();
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeModal();
     initializeAnimations();
     initializeScrollEffects();
-    
+
     // Force check mobile navigation on load
     forceMobileNavCheck();
 });
@@ -452,31 +452,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // Language switching functionality
 function switchLanguage(lang) {
     currentLanguage = lang;
-    
+
     // Update active language button
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.getElementById(`lang-${lang}`).classList.add('active');
-    
+
     // Update language display button
     const langDisplay = document.getElementById('lang-display');
     if (langDisplay) {
         langDisplay.textContent = lang.toUpperCase();
     }
-    
+
     // Update all translatable elements
     updateTranslations();
-    
+
     // Update CV URLs
     updateCVUrls();
-    
+
     // Update projects
     renderProjects();
-    
+
     // Store language preference
     localStorage.setItem('preferredLanguage', lang);
-    
+
     // Close language tooltip
     closeLanguageTooltip();
 }
@@ -486,29 +486,29 @@ function initializeLanguageTooltip() {
     const langTrigger = document.getElementById('lang-trigger');
     const langOverlay = document.getElementById('lang-overlay');
     const languageToggle = document.getElementById('language-toggle');
-    
+
     if (!langTrigger || !langOverlay || !languageToggle) return;
-    
+
     // Show language tooltip
-    langTrigger.addEventListener('click', function(e) {
+    langTrigger.addEventListener('click', function (e) {
         e.stopPropagation();
         showLanguageTooltip();
     });
-    
+
     // Hide when clicking overlay
-    langOverlay.addEventListener('click', function() {
+    langOverlay.addEventListener('click', function () {
         closeLanguageTooltip();
     });
-    
+
     // Hide with escape key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && languageToggle.classList.contains('active')) {
             closeLanguageTooltip();
         }
     });
-    
+
     // Prevent tooltip from closing when clicking inside
-    languageToggle.addEventListener('click', function(e) {
+    languageToggle.addEventListener('click', function (e) {
         e.stopPropagation();
     });
 }
@@ -516,7 +516,7 @@ function initializeLanguageTooltip() {
 function showLanguageTooltip() {
     const langOverlay = document.getElementById('lang-overlay');
     const languageToggle = document.getElementById('language-toggle');
-    
+
     langOverlay.classList.add('active');
     languageToggle.classList.add('active');
     languageToggle.classList.remove('inactive');
@@ -525,7 +525,7 @@ function showLanguageTooltip() {
 function closeLanguageTooltip() {
     const langOverlay = document.getElementById('lang-overlay');
     const languageToggle = document.getElementById('language-toggle');
-    
+
     languageToggle.classList.add('inactive');
     setTimeout(() => {
         langOverlay.classList.remove('active');
@@ -537,7 +537,7 @@ function closeLanguageTooltip() {
 function updateCVUrls() {
     const cvLinks = document.querySelectorAll('a[href*="CV_Othmane_Nourddine"]');
     const newUrl = cvUrls[currentLanguage];
-    
+
     cvLinks.forEach(link => {
         link.setAttribute('href', newUrl);
         // Ensure all CV links open in new tab
@@ -549,19 +549,19 @@ function updateCVUrls() {
 function initializeLanguage() {
     // Get saved language preference or default to English
     const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-    
+
     // Set initial language button state
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.getElementById(`lang-${savedLang}`).classList.add('active');
-    
+
     // Update language display button
     const langDisplay = document.getElementById('lang-display');
     if (langDisplay) {
         langDisplay.textContent = savedLang.toUpperCase();
     }
-    
+
     currentLanguage = savedLang;
     updateTranslations();
     updateCVUrls();
@@ -573,13 +573,13 @@ function updateTranslations() {
         const text = currentLanguage === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-fr');
         element.textContent = text;
     });
-    
+
     // Update document title
-    const titleText = currentLanguage === 'en' 
+    const titleText = currentLanguage === 'en'
         ? 'Othmane Nourddine - Data Scientist & ML Engineer'
         : 'Othmane Nourddine - Data Scientist & Ingénieur ML';
     document.title = titleText;
-    
+
     // Update meta description
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
@@ -598,14 +598,14 @@ function getTranslation(key) {
 function initializeNavigation() {
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 const headerOffset = 80;
                 const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
+
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
@@ -613,9 +613,9 @@ function initializeNavigation() {
             }
         });
     });
-    
+
     // Navbar background on scroll
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
             navbar.style.background = 'rgba(248, 250, 252, 0.98)';
@@ -631,7 +631,7 @@ function forceMobileNavCheck() {
         const navToggle = document.getElementById('nav-toggle');
         const navMenu = document.getElementById('nav-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        
+
         if (window.innerWidth <= 768) {
             // FORCE show mobile toggle
             if (navToggle) {
@@ -639,12 +639,12 @@ function forceMobileNavCheck() {
                 navToggle.style.visibility = 'visible';
                 navToggle.style.opacity = '1';
             }
-            
+
             // FORCE hide desktop menu
             if (navMenu) {
                 navMenu.style.display = 'none';
             }
-            
+
             // Enable mobile menu overlay
             if (mobileMenuOverlay) {
                 mobileMenuOverlay.style.display = 'block';
@@ -654,27 +654,27 @@ function forceMobileNavCheck() {
             if (navToggle) {
                 navToggle.style.display = 'none';
             }
-            
+
             if (navMenu) {
                 navMenu.style.display = 'flex';
             }
-            
+
             if (mobileMenuOverlay) {
                 mobileMenuOverlay.style.display = 'none';
             }
         }
     }
-    
+
     // Check immediately
     checkAndSetMobileNav();
-    
+
     // Check on resize with debounce
     let resizeTimeout;
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(checkAndSetMobileNav, 100);
     });
-    
+
     // Additional checks after DOM updates
     setTimeout(checkAndSetMobileNav, 100);
     setTimeout(checkAndSetMobileNav, 500);
@@ -685,57 +685,57 @@ function initializeMobileMenu() {
     const navToggle = document.getElementById('nav-toggle');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const mobileMenuClose = document.getElementById('mobile-menu-close');
-    
+
     if (!navToggle || !mobileMenuOverlay || !mobileMenuClose) {
         console.error('Mobile menu elements not found');
         return;
     }
-    
+
     // Open mobile menu
-    navToggle.addEventListener('click', function(e) {
+    navToggle.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         console.log('Mobile menu toggle clicked');
-        
+
         mobileMenuOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     });
-    
+
     // Close mobile menu function
     function closeMobileMenu() {
         mobileMenuOverlay.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
-    
+
     // Close button
-    mobileMenuClose.addEventListener('click', function(e) {
+    mobileMenuClose.addEventListener('click', function (e) {
         e.preventDefault();
         closeMobileMenu();
     });
-    
+
     // Close when clicking overlay background
-    mobileMenuOverlay.addEventListener('click', function(e) {
+    mobileMenuOverlay.addEventListener('click', function (e) {
         if (e.target === mobileMenuOverlay) {
             closeMobileMenu();
         }
     });
-    
+
     // Close when clicking nav links
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             closeMobileMenu();
         });
     });
-    
+
     // Close with Escape key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('active')) {
             closeMobileMenu();
         }
     });
-    
+
     // Prevent mobile menu from interfering with desktop
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         if (window.innerWidth > 768) {
             closeMobileMenu();
         }
@@ -750,9 +750,9 @@ function initializeProjects() {
 function renderProjects() {
     const projectsGrid = document.querySelector('.projects-grid');
     if (!projectsGrid) return;
-    
+
     const projects = projectsData[currentLanguage];
-    
+
     projectsGrid.innerHTML = projects.map(project => `
         <div class="project-card" onclick="openProjectModal('${project.id}')">
             <div class="project-image">
@@ -779,10 +779,10 @@ function renderProjects() {
 function openProjectModal(projectId) {
     const project = projectsData[currentLanguage].find(p => p.id === projectId);
     if (!project) return;
-    
+
     const modal = document.getElementById('project-modal');
     const modalBody = document.getElementById('modal-body');
-    
+
     modalBody.innerHTML = `
         <div class="modal-header">
             <h2 class="modal-title">${project.title}</h2>
@@ -812,9 +812,9 @@ function openProjectModal(projectId) {
                 `).join('')}
             </div>
             <p style="color: var(--text-muted); font-style: italic; margin-top: var(--spacing-md);">
-                ${currentLanguage === 'en' 
-                    ? 'Screenshots will be displayed when available. Some projects are from private repositories or company internships.' 
-                    : 'Les captures d\'écran seront affichées lorsqu\'elles seront disponibles. Certains projets proviennent de dépôts privés ou de stages en entreprise.'}
+                ${currentLanguage === 'en'
+            ? 'Screenshots will be displayed when available. Some projects are from private repositories or company internships.'
+            : 'Les captures d\'écran seront affichées lorsqu\'elles seront disponibles. Certains projets proviennent de dépôts privés ou de stages en entreprise.'}
             </p>
         </div>
         
@@ -831,14 +831,14 @@ function openProjectModal(projectId) {
             ` : ''}
             ${!project.demo && !project.github ? `
                 <p style="color: var(--text-muted); font-style: italic;">
-                    ${currentLanguage === 'en' 
-                        ? 'This project is from a private repository or company internship and demo links are not publicly available.' 
-                        : 'Ce projet provient d\'un dépôt privé ou d\'un stage en entreprise et les liens de démonstration ne sont pas publiquement disponibles.'}
+                    ${currentLanguage === 'en'
+                ? 'This project is from a private repository or company internship and demo links are not publicly available.'
+                : 'Ce projet provient d\'un dépôt privé ou d\'un stage en entreprise et les liens de démonstration ne sont pas publiquement disponibles.'}
                 </p>
             ` : ''}
         </div>
     `;
-    
+
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
@@ -853,21 +853,21 @@ function closeProjectModal() {
 function initializeModal() {
     const modal = document.getElementById('project-modal');
     const closeBtn = document.querySelector('.close');
-    
+
     // Close modal when clicking the close button
     if (closeBtn) {
         closeBtn.addEventListener('click', closeProjectModal);
     }
-    
+
     // Close modal when clicking outside of it
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         if (event.target === modal) {
             closeProjectModal();
         }
     });
-    
+
     // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             closeProjectModal();
         }
@@ -881,8 +881,8 @@ function initializeAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
-    const observer = new IntersectionObserver(function(entries) {
+
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -890,7 +890,7 @@ function initializeAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe elements for animation
     document.querySelectorAll('.experience-card, .skill-category, .project-card, .cert-card, .timeline-item').forEach(el => {
         el.style.opacity = '0';
@@ -904,19 +904,19 @@ function initializeScrollEffects() {
     // Active navigation link highlighting
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
             const sectionHeight = section.clientHeight;
-            
+
             if (sectionTop <= 100 && sectionTop + sectionHeight > 100) {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
@@ -924,9 +924,9 @@ function initializeScrollEffects() {
             }
         });
     });
-    
+
     // Parallax effect for hero section
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         if (hero) {
@@ -950,13 +950,13 @@ function debounce(func, wait) {
 }
 
 // Performance optimization
-window.addEventListener('resize', debounce(function() {
+window.addEventListener('resize', debounce(function () {
     // Re-check mobile navigation on resize
     forceMobileNavCheck();
 }, 100));
 
 // Error handling for images
-document.addEventListener('error', function(e) {
+document.addEventListener('error', function (e) {
     if (e.target.tagName === 'IMG') {
         e.target.style.display = 'none';
         console.log('Image failed to load:', e.target.src);
@@ -976,7 +976,7 @@ window.showLanguageTooltip = showLanguageTooltip;
 window.closeLanguageTooltip = closeLanguageTooltip;
 
 // Debug function for mobile navigation
-window.debugMobileNav = function() {
+window.debugMobileNav = function () {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     console.log('Screen width:', window.innerWidth);
