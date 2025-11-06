@@ -8,6 +8,39 @@ const cvUrls = {
 const projectsData = {
     en: [
         {
+            id: 'talab',
+            title: 'Talab - Morocco Education Platform',
+            description: 'AI-powered platform helping Moroccan students find personalized education opportunities and scholarships using machine learning recommendations.',
+            longDescription: 'Talab (طلب) is an intelligent web application that helps Moroccan students discover the best higher education opportunities and scholarships that match their profile. Using content-based recommendation algorithms with TF-IDF vectorization and K-Nearest Neighbors, the platform provides personalized suggestions based on academic level, fields of interest, preferred location, languages, and financial constraints.',
+            tech: ['Python', 'FastAPI', 'Streamlit', 'PostgreSQL', 'scikit-learn', 'Docker'],
+            features: [
+                'AI-powered recommendation engine using TF-IDF and KNN algorithms',
+                'Comprehensive database of 22+ scholarships and 60+ universities',
+                'Multi-language support (French, Arabic, English)',
+                'Real-time recommendation filtering and sorting',
+                'Beautiful Moroccan-themed user interface with cultural elements',
+                'Docker containerization for easy deployment',
+                'RESTful API with automatic documentation',
+                'CSV export functionality for recommendations'
+            ],
+            screenshots: [
+                'screenshots/talab-1.png',
+                'screenshots/talab-2.png',
+                'screenshots/talab-3.png',
+                'screenshots/talab-4.png'
+            ],
+            videos: [  // ADD THIS NEW SECTION
+                {
+                    url: 'videos/talab-demo.mp4',
+                    title: 'Talab Platform Demo',
+                    description: 'Complete walkthrough of the Talab platform showing the recommendation engine in action'
+                }
+            ],
+            github: 'https://github.com/Othamane/Talab',
+            demo: null,
+            category: 'AI/ML'
+        },
+        {
             id: 'atlascare',
             title: 'AtlasCare - AI Hospital Management System',
             description: 'AI-powered hospital management system developed during Code ESI Hackathon with 4 ML models for patient optimization',
@@ -190,6 +223,39 @@ const projectsData = {
         }
     ],
     fr: [
+        {
+            id: 'talab',
+            title: 'Talab - Plateforme d\'Éducation Maroc',
+            description: 'Plateforme alimentée par l\'IA aidant les étudiants marocains à trouver des opportunités d\'éducation personnalisées et des bourses en utilisant des recommandations d\'apprentissage automatique.',
+            longDescription: 'Talab (طلب) est une application web intelligente qui aide les étudiants marocains à découvrir les meilleures opportunités d\'enseignement supérieur et bourses qui correspondent à leur profil. Utilisant des algorithmes de recommandation basés sur le contenu avec vectorisation TF-IDF et K-Nearest Neighbors, la plateforme fournit des suggestions personnalisées basées sur le niveau académique, les domaines d\'intérêt, la localisation préférée, les langues et les contraintes financières.',
+            tech: ['Python', 'FastAPI', 'Streamlit', 'PostgreSQL', 'scikit-learn', 'Docker'],
+            features: [
+                'Moteur de recommandation IA utilisant les algorithmes TF-IDF et KNN',
+                'Base de données complète de 22+ bourses et 60+ universités',
+                'Support multi-langue (Français, Arabe, Anglais)',
+                'Filtrage et tri des recommandations en temps réel',
+                'Interface utilisateur magnifique à thème marocain avec éléments culturels',
+                'Conteneurisation Docker pour déploiement facile',
+                'API RESTful avec documentation automatique',
+                'Fonctionnalité d\'export CSV pour les recommandations'
+            ],
+            screenshots: [
+                'screenshots/talab-1.png',
+                'screenshots/talab-2.png',
+                'screenshots/talab-3.png',
+                'screenshots/talab-4.png'
+            ],
+            videos: [
+                {
+                    url: 'videos/talab-demo.mp4',
+                    title: 'Démonstration de la Plateforme Talab',
+                    description: 'Présentation complète de la plateforme Talab montrant le moteur de recommandation en action'
+                }
+            ],
+            github: 'https://github.com/Othamane/Talab',
+            demo: null,
+            category: 'IA/ML'
+        },
         {
             id: 'atlascare',
             title: 'AtlasCare - Système de Gestion Hospitalière IA',
@@ -776,6 +842,7 @@ function renderProjects() {
     `).join('');
 }
 
+
 function openProjectModal(projectId) {
     const project = projectsData[currentLanguage].find(p => p.id === projectId);
     if (!project) return;
@@ -802,6 +869,32 @@ function openProjectModal(projectId) {
                 ${project.features.map(feature => `<li>${feature}</li>`).join('')}
             </ul>
         </div>
+
+        <!-- ADD VIDEO SECTION HERE -->
+        ${project.videos ? `
+        <div class="modal-videos">
+            <h4>${currentLanguage === 'en' ? 'Demo Videos' : 'Vidéos de Démonstration'}</h4>
+            <div class="video-grid">
+                ${project.videos.map((video, index) => `
+                    <div class="video-container">
+                        <h5 class="video-title">${video.title}</h5>
+                        <video 
+                            controls 
+                            preload="metadata"
+                            poster="screenshots/talab-${index + 1}.png"
+                            class="project-video"
+                        >
+                            <source src="${video.url}" type="video/mp4">
+                            ${currentLanguage === 'en'
+            ? 'Your browser does not support the video tag.'
+            : 'Votre navigateur ne supporte pas la balise vidéo.'}
+                        </video>
+                        <p class="video-description">${video.description}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        ` : ''}
         
         <div class="modal-screenshots">
             <h4>${getTranslation('Screenshots')}</h4>
@@ -813,8 +906,8 @@ function openProjectModal(projectId) {
             </div>
             <p style="color: var(--text-muted); font-style: italic; margin-top: var(--spacing-md);">
                 ${currentLanguage === 'en'
-            ? 'Screenshots will be displayed when available. Some projects are from private repositories or company internships.'
-            : 'Les captures d\'écran seront affichées lorsqu\'elles seront disponibles. Certains projets proviennent de dépôts privés ou de stages en entreprise.'}
+            ? 'Screenshots will be displayed when available.'
+            : 'Les captures d\'écran seront affichées lorsqu\'elles seront disponibles.'}
             </p>
         </div>
         
@@ -828,13 +921,6 @@ function openProjectModal(projectId) {
                 <a href="${project.github}" target="_blank" class="btn btn-secondary">
                     ${getTranslation('View Code')}
                 </a>
-            ` : ''}
-            ${!project.demo && !project.github ? `
-                <p style="color: var(--text-muted); font-style: italic;">
-                    ${currentLanguage === 'en'
-                ? 'This project is from a private repository or company internship and demo links are not publicly available.'
-                : 'Ce projet provient d\'un dépôt privé ou d\'un stage en entreprise et les liens de démonstration ne sont pas publiquement disponibles.'}
-                </p>
             ` : ''}
         </div>
     `;
